@@ -16,8 +16,52 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  bool isFollowing = false;
+  bool isLiked = false;
+
+  int followers = 1250;
+  int likes = 128;
+
+  void toggleFollow() {
+    setState(() {
+      if (isFollowing) {
+        followers--;
+      } else {
+        followers++;
+      }
+
+      isFollowing = !isFollowing;
+    });
+  }
+
+  void toggleLike() {
+    setState(() {
+      if (isLiked) {
+        likes--;
+      } else {
+        likes++;
+      }
+
+      isLiked = !isLiked;
+    });
+  }
+
+  void resetProfile() {
+    setState(() {
+      isFollowing = false;
+      isLiked = false;
+      followers = 1250;
+      likes = 128;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,36 +83,105 @@ class ProfilePage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25),
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(25),
+              child: Padding(
+                padding: const EdgeInsets.all(25),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 60,
                       child: Icon(Icons.person, size: 60),
                     ),
-                    SizedBox(height: 20),
-                    Text(
+                    const SizedBox(height: 20),
+                    const Text(
                       'Profile User',
                       style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 5),
-                    Text(
+                    const SizedBox(height: 5),
+                    const Text(
                       '@profileuser',
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
                       ),
                     ),
-                    SizedBox(height: 15),
-                    Text(
+                    const SizedBox(height: 15),
+                    const Text(
                       'Flutter Developer | UI Designer | Tech Lover',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16),
+                    ),
+                    const SizedBox(height: 25),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              '$followers',
+                              style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const Text(
+                              'Followers',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              '$likes',
+                              style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const Text(
+                              'Likes',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 25),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: toggleFollow,
+                        child: Text(isFollowing ? 'Following' : 'Follow'),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton.icon(
+                        onPressed: toggleLike,
+                        icon: Icon(
+                          isLiked ? Icons.favorite : Icons.favorite_border,
+                        ),
+                        label: Text(
+                          isLiked ? 'Liked ($likes)' : 'Like ($likes)',
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: OutlinedButton.icon(
+                        onPressed: resetProfile,
+                        icon: const Icon(Icons.refresh),
+                        label: const Text('Reset'),
+                      ),
                     ),
                   ],
                 ),
