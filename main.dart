@@ -67,54 +67,73 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
+
       appBar: AppBar(
         title: const Text('Profile'),
         centerTitle: true,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
       ),
+
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 500),
+            constraints: const BoxConstraints(
+              maxWidth: 500,
+            ),
+
             child: Card(
               elevation: 5,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25),
               ),
+
               child: Padding(
                 padding: const EdgeInsets.all(25),
+
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const CircleAvatar(
                       radius: 60,
-                      child: Icon(Icons.person, size: 60),
+                      backgroundImage: NetworkImage(
+                        'https://avatars.mds.yandex.net/i?id=8fb1f74d479f040a81e3b51e03445189a2442329-5905003-images-thumbs&n=13',
+                      ),
                     ),
+
                     const SizedBox(height: 20),
+
                     const Text(
-                      'Profile User',
+                      'Damir Makhmutov',
                       style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+
                     const SizedBox(height: 5),
+
                     const Text(
-                      '@profileuser',
+                      '@DamirMakhmutov',
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
                       ),
                     ),
+
                     const SizedBox(height: 15),
+
                     const Text(
                       'Flutter Developer | UI Designer | Tech Lover',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
                     ),
+
                     const SizedBox(height: 25),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -129,10 +148,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             const Text(
                               'Followers',
-                              style: TextStyle(color: Colors.grey),
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
                             ),
                           ],
                         ),
+
                         Column(
                           children: [
                             Text(
@@ -144,22 +166,39 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             const Text(
                               'Likes',
-                              style: TextStyle(color: Colors.grey),
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
                             ),
                           ],
                         ),
                       ],
                     ),
+
                     const SizedBox(height: 25),
+
                     SizedBox(
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
                         onPressed: toggleFollow,
-                        child: Text(isFollowing ? 'Following' : 'Follow'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              isFollowing ? Colors.grey : Colors.blue,
+                          foregroundColor: Colors.white,
+                        ),
+                        child: Text(
+                          isFollowing ? 'Following' : 'Follow',
+                          style: const TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
+
                     const SizedBox(height: 12),
+
                     SizedBox(
                       width: double.infinity,
                       height: 50,
@@ -170,17 +209,33 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         label: Text(
                           isLiked ? 'Liked ($likes)' : 'Like ($likes)',
+                          style: const TextStyle(
+                            fontSize: 17,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              isLiked ? Colors.red : Colors.white,
+                          foregroundColor:
+                              isLiked ? Colors.white : Colors.red,
                         ),
                       ),
                     ),
+
                     const SizedBox(height: 12),
+
                     SizedBox(
                       width: double.infinity,
                       height: 50,
                       child: OutlinedButton.icon(
                         onPressed: resetProfile,
                         icon: const Icon(Icons.refresh),
-                        label: const Text('Reset'),
+                        label: const Text(
+                          'Reset',
+                          style: TextStyle(
+                            fontSize: 17,
+                          ),
+                        ),
                       ),
                     ),
                   ],
